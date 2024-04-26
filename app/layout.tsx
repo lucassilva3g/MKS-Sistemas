@@ -1,6 +1,8 @@
 import { ReactQueryClientProvider } from "@/components/ReactQueryClientProvider";
 import StyledComponentsRegistry from "lib/registry";
 
+import "../styles/global.css";
+
 export default function RootLayout({
   children,
 }: {
@@ -9,13 +11,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-      <ReactQueryClientProvider>
-      <StyledComponentsRegistry>
-        {children}
-        </StyledComponentsRegistry>
+        <ReactQueryClientProvider>
+          <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
         </ReactQueryClientProvider>
-
-        </body>
+      </body>
     </html>
   );
 }
