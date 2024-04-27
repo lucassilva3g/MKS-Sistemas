@@ -1,49 +1,102 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
-import { Product } from "api/queries/productsApi";
+import { Product } from "api/productsApi";
+
+interface CartProduct extends Product {
+  quantity: number;
+}
 
 interface CartContextData {
   isCartOpen: boolean;
+  totalItems: number;
+  cart: CartProduct[];
   openCart: () => void;
   closeCart: () => void;
-  cart: Product[];
   addToCart: (product: Product) => void;
-  removeFromCart: (productId: number) => void;
+  decrementQuantityOrRemove: (productId: number) => void;
 }
 
 const CartContext = createContext<CartContextData | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [cart, setCart] = useState<Product[]>([]);
+  const [cart, setCart] = useState<CartProduct[]>([]);
 
   const openCart = () => {
     setIsCartOpen(true);
   };
 
-  const closeCart = () => {
+  const closeCart = useCallback(() => {
     setIsCartOpen(false);
+  }, []);
+
+  const addToCart = (productToAdd: Product) => {
+    setCart((currentCart) => {
+      const foundProduct = currentCart.find(
+        (cartItem) => cartItem.id === productToAdd.id,
+      );
+      if (foundProduct) {
+        return currentCart.map((cartItem) =>
+          cartItem.id === productToAdd.id
+            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            : cartItem,
+        );
+      }
+      return [...currentCart, { ...productToAdd, quantity: 1 }];
+    });
   };
 
-  const addToCart = (product: Product) => {
-    setCart((prev) => [...prev, product]);
+  const decrementQuantityOrRemove = (productId: number) => {
+    setCart((currentCart: CartProduct[]) => {
+      return currentCart.reduce<CartProduct[]>((acc, cartItem) => {
+        if (cartItem.id === productId) {
+          if (cartItem.quantity > 1) {
+            acc.push({ ...cartItem, quantity: cartItem.quantity - 1 });
+          }
+        } else {
+          acc.push(cartItem);
+        }
+        return acc;
+      }, []);
+    });
   };
 
-  const removeFromCart = (productId: number) => {
-    setCart((prev) => prev.filter((product) => product.id !== productId));
-  };
+  const totalItems = cart.reduce((acc, product) => acc + product.quantity, 0);
+
+  useEffect(() => {
+    const closeSidebar = (event: MouseEvent) => {
+      if (!(event.target as HTMLElement).closest("#sidebar")) {
+        closeCart();
+      }
+    };
+
+    if (isCartOpen) {
+      document.addEventListener("click", closeSidebar);
+    }
+
+    return () => {
+      document.removeEventListener("click", closeSidebar);
+    };
+  }, [isCartOpen, closeCart]);
 
   return (
     <CartContext.Provider
       value={{
         isCartOpen,
+        totalItems,
+        cart,
         openCart,
         closeCart,
-        cart,
         addToCart,
-        removeFromCart,
+        decrementQuantityOrRemove,
       }}
     >
       {children}

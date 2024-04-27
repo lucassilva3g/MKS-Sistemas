@@ -8,7 +8,7 @@ import { useCart } from "contexts/cart-context";
 import { Title, Container, CartIcon } from "./index.style";
 
 export default function Header() {
-  const { openCart } = useCart();
+  const { openCart, totalItems } = useCart();
   return (
     <Container>
       <Title>
@@ -16,7 +16,7 @@ export default function Header() {
       </Title>
       <CartIcon onClick={openCart}>
         <Image src="/Cart.svg" alt="Cart" width={19.01} height={18} />
-        <p>0</p>
+        <p>{totalItems}</p>
       </CartIcon>
     </Container>
   );

@@ -16,14 +16,19 @@ export interface ProductsResponse {
   count: number;
 }
 
-export const productsApi = async ({
+export const fetchProducts = async ({
   page = 1,
   rows = 10,
   sortBy = "id",
-  orderBy = "DESC",
+  orderBy = "desc",
 }): Promise<ProductsResponse> => {
-  const response = await api.get(
-    `/products?page=${page}&rows=${rows}&sortBy=${sortBy}&orderBy=${orderBy}`,
-  );
-  return response.data;
+  try {
+    const response = await api.get(`/products`, {
+      params: { page, rows, sortBy, orderBy },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch products:", error);
+    throw error;
+  }
 };

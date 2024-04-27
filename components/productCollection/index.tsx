@@ -2,11 +2,12 @@
 
 import { Tooltip } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
-import { productsApi } from "api/queries/productsApi";
+import { Product, productsApi } from "api/productsApi";
 import { useCart } from "contexts/cart-context";
+import { useProductsQuery } from "hooks/useProductsQuery";
 
 import {
   Button,
@@ -46,21 +47,16 @@ const sidebarVariants = {
 };
 
 export default function ProductColletion() {
-  const { isCartOpen } = useCart();
+  const { isCartOpen, addToCart, openCart } = useCart();
 
-  const { data, isLoading, error } = useQuery({
-    queryKey: [
-      "products",
-      { page: 1, rows: 10, sortBy: "id", orderBy: "DESC" },
-    ],
-    queryFn: ({ queryKey }) => {
-      const [, params] = queryKey;
-      if (typeof params === "object") {
-        return productsApi(params);
-      }
-      throw new Error("Invalid query params");
-    },
-  });
+  const { data, isLoading, error } = useProductsQuery();
+
+  const handleAddToCart = (product: Product) => {
+    addToCart(product);
+    openCart();
+  };
+
+  if (isLoading) return <p>Loading...</p>;
 
   return (
     <Container>
@@ -85,7 +81,7 @@ export default function ProductColletion() {
             <Tooltip title={product.description} placement="top">
               <Paragraph>{product.description}</Paragraph>
             </Tooltip>
-            <Button>
+            <Button onClick={() => handleAddToCart(product)}>
               <Image
                 src="/shopping-bag.svg"
                 alt="shopping-bag"
@@ -100,6 +96,7 @@ export default function ProductColletion() {
       <AnimatePresence>
         {isCartOpen && (
           <Sidebar
+            id="sidebar"
             initial="hidden"
             animate="visible"
             exit="exit"
