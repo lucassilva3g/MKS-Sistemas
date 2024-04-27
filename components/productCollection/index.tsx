@@ -1,24 +1,29 @@
 "use client";
 
 import { Tooltip } from "@mui/material";
-import { useQuery } from "@tanstack/react-query";
 import { AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
-import { Product, productsApi } from "api/productsApi";
+import { Product } from "api/productsApi";
 import { useCart } from "contexts/cart-context";
 import { useProductsQuery } from "hooks/useProductsQuery";
 
 import {
   Button,
   Card,
+  CartButton,
+  CartFooter,
+  CartProducts,
   Container,
+  Icon,
   Paragraph,
   Price,
   ProductImage,
   ProductName,
   ProductPriceTitle,
   Sidebar,
+  Title,
+  TotalAmount,
 } from "./index.style";
 
 const sidebarVariants = {
@@ -46,7 +51,7 @@ const sidebarVariants = {
   },
 };
 
-export default function ProductColletion() {
+export default function ProductCollection() {
   const { isCartOpen, addToCart, openCart } = useCart();
 
   const { data, isLoading, error } = useProductsQuery();
@@ -62,7 +67,12 @@ export default function ProductColletion() {
     <Container>
       {data &&
         data.products.map((product) => (
-          <Card key={product.id}>
+          <Card
+            key={product.id}
+            whileHover={{ scale: 1.1 }}
+            onHoverStart={(e) => {}}
+            onHoverEnd={(e) => {}}
+          >
             <ProductImage
               src={product.photo}
               alt="shopping-bag"
@@ -101,7 +111,22 @@ export default function ProductColletion() {
             animate="visible"
             exit="exit"
             variants={sidebarVariants}
-          ></Sidebar>
+          >
+            <Title>
+              <h1>Carrinho de compras</h1>
+              <Icon>X</Icon>
+            </Title>
+            <CartProducts>
+              <p>Produtos no carrinho</p>
+            </CartProducts>
+            <CartFooter>
+              <TotalAmount>
+                <p>Total:</p>
+                <p>R$798</p>
+              </TotalAmount>
+              <CartButton>Finalizar compra</CartButton>
+            </CartFooter>
+          </Sidebar>
         )}
       </AnimatePresence>
     </Container>

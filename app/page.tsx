@@ -1,6 +1,6 @@
 import Footer from "@/components/footer/footer";
 import Header from "@/components/header";
-import ProductColletion from "@/components/productCollection";
+import ProductCollection from "@/components/productCollection";
 
 import { Container } from "./style";
 
@@ -12,7 +12,7 @@ export default function LandingPage() {
   return (
     <Container>
       <Header />
-      <ProductColletion />
+      <ProductCollection />
       <Footer />
     </Container>
   );
