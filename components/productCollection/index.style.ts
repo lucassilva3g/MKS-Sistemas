@@ -13,7 +13,7 @@ export const Container = styled.div`
   gap: 22px;
 `;
 
-export const Card = styled.div`
+export const Card = styled(motion.div)`
   display: flex;
   width: 238px;
   height: 285px;

@@ -45,7 +45,7 @@ const sidebarVariants = {
   },
 };
 
-export default function ProductColletion() {
+export default function ProductCollection() {
   const { isCartOpen } = useCart();
 
   const { data, isLoading, error } = useQuery({
@@ -66,7 +66,12 @@ export default function ProductColletion() {
     <Container>
       {data &&
         data.products.map((product) => (
-          <Card key={product.id}>
+          <Card
+            key={product.id}
+            whileHover={{ scale: 1.1 }}
+            onHoverStart={(e) => {}}
+            onHoverEnd={(e) => {}}
+          >
             <ProductImage
               src={product.photo}
               alt="shopping-bag"
