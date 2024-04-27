@@ -36,4 +36,5 @@ export const CartIcon = styled(motion.div)`
   height: 45px;
   border-radius: 8px;
   gap: 20px;
+  cursor: pointer;
 `;
