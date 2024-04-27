@@ -3,15 +3,18 @@ import React from "react";
 
 import Image from "next/image";
 
+import { useCart } from "contexts/cart-context";
+
 import { Title, Container, CartIcon } from "./index.style";
 
 export default function Header() {
+  const { openCart } = useCart();
   return (
     <Container>
       <Title>
         MKS <span>Sistemas</span>
       </Title>
-      <CartIcon>
+      <CartIcon onClick={openCart}>
         <Image src="/Cart.svg" alt="Cart" width={19.01} height={18} />
         <p>0</p>
       </CartIcon>

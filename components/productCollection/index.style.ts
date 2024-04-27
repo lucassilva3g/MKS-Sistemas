@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -95,4 +96,15 @@ export const Paragraph = styled.p`
   white-space: nowrap;
   text-overflow: ellipsis;
   width: 100%;
+`;
+
+export const Sidebar = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100%;
+  background: white;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+  z-index: 10;
 `;

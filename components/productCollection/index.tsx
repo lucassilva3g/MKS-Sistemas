@@ -2,9 +2,11 @@
 
 import { Tooltip } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 
 import { productsApi } from "api/queries/productsApi";
+import { useCart } from "contexts/cart-context";
 
 import {
   Button,
@@ -15,9 +17,37 @@ import {
   ProductImage,
   ProductName,
   ProductPriceTitle,
+  Sidebar,
 } from "./index.style";
 
+const sidebarVariants = {
+  hidden: {
+    x: "100vw",
+    opacity: 0,
+    transition: { type: "tween", duration: 0.2 },
+  },
+  visible: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      type: "spring",
+      stiffness: 250,
+      damping: 25,
+      mass: 0.4,
+      when: "beforeChildren",
+      staggerChildren: 0.05,
+    },
+  },
+  exit: {
+    x: "100vw",
+    opacity: 0,
+    transition: { type: "tween", duration: 0.15 },
+  },
+};
+
 export default function ProductColletion() {
+  const { isCartOpen } = useCart();
+
   const { data, isLoading, error } = useQuery({
     queryKey: [
       "products",
@@ -49,7 +79,7 @@ export default function ProductColletion() {
                 {new Intl.NumberFormat("pt-BR", {
                   style: "currency",
                   currency: "BRL",
-                }).format(product.price)}
+                }).format(Number(product.price))}
               </Price>
             </ProductPriceTitle>
             <Tooltip title={product.description} placement="top">
@@ -66,6 +96,17 @@ export default function ProductColletion() {
             </Button>
           </Card>
         ))}
+
+      <AnimatePresence>
+        {isCartOpen && (
+          <Sidebar
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            variants={sidebarVariants}
+          ></Sidebar>
+        )}
+      </AnimatePresence>
     </Container>
   );
 }
