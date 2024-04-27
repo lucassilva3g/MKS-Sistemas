@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import "fontsource-montserrat";
 
 export const Container = styled.div`
   display: flex;
@@ -14,12 +13,10 @@ export const Container = styled.div`
 
 export const Title = styled(motion.h1)`
   font-size: 40px;
-  font-family: Montserrat;
   font-weight: 600;
   color: #fff;
 
   span {
-    font-family: Montserrat;
     font-weight: 300;
     font-size: 20px;
     line-height: 19px;
