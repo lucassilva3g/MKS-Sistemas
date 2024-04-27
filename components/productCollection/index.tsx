@@ -11,13 +11,19 @@ import { useCart } from "contexts/cart-context";
 import {
   Button,
   Card,
+  CartButton,
+  CartFooter,
+  CartProducts,
   Container,
+  Icon,
   Paragraph,
   Price,
   ProductImage,
   ProductName,
   ProductPriceTitle,
   Sidebar,
+  Title,
+  TotalAmount,
 } from "./index.style";
 
 const sidebarVariants = {
@@ -109,7 +115,22 @@ export default function ProductCollection() {
             animate="visible"
             exit="exit"
             variants={sidebarVariants}
-          ></Sidebar>
+          >
+            <Title>
+              <h1>Carrinho de compras</h1>
+              <Icon>X</Icon>
+            </Title>
+            <CartProducts>
+              <p>Produtos no carrinho</p>
+            </CartProducts>
+            <CartFooter>
+              <TotalAmount>
+                <p>Total:</p>
+                <p>R$798</p>
+              </TotalAmount>
+              <CartButton>Finalizar compra</CartButton>
+            </CartFooter>
+          </Sidebar>
         )}
       </AnimatePresence>
     </Container>

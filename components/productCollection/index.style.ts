@@ -99,12 +99,93 @@ export const Paragraph = styled.p`
 `;
 
 export const Sidebar = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: fixed;
   top: 0;
   right: 0;
-  width: 300px;
+  width: 400px;
   height: 100%;
-  background: white;
+  background: #0f52ba;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
   z-index: 10;
+`;
+
+export const Title = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  padding: 25px;
+  background-color: #0f52ba;
+  color: #fff;
+  font-size: 18px;
+`;
+
+export const Icon = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+  border-radius: 50%;
+  height: 38px;
+  width: 38px;
+  padding: 15px;
+  color: #fff;
+  cursor: pointer;
+  margin-bottom: 30px;
+
+  &:hover {
+    background-color: #0a0a0a;
+    transition: 0.5s;
+  }
+`;
+
+export const CartProducts = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 95px;
+  width: 379px;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border-radius: 8px;
+  margin-top: 50px;
+`;
+
+export const CartFooter = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: auto;
+`;
+
+export const TotalAmount = styled.div`
+  display: flex;
+  font-weight: 700;
+  padding-bottom: 20px;
+  justify-content: space-around;
+  width: 100%;
+  gap: 115px;
+  font-size: 25px;
+  color: #fff;
+`;
+
+export const CartButton = styled.button`
+  width: 100%;
+  height: 70px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+
+  &:hover {
+    background-color: #0a0a0a;
+    transition: 0.5s;
+  }
 `;
