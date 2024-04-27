@@ -1,8 +1,10 @@
+import { Montserrat } from "next/font/google";
+
 import { ReactQueryClientProvider } from "@/components/ReactQueryClientProvider";
 import StyledComponentsRegistry from "lib/registry";
-
 import "../styles/global.css";
 
+const montserrat = Montserrat({ subsets: ["latin"] });
 export default function RootLayout({
   children,
 }: {
@@ -10,7 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className={montserrat.className}>
         <ReactQueryClientProvider>
           <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
         </ReactQueryClientProvider>

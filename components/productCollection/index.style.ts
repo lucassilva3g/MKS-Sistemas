@@ -14,7 +14,7 @@ export const Container = styled.div`
 
 export const Card = styled.div`
   display: flex;
-  width: 218px;
+  width: 238px;
   height: 285px;
   background-color: #ffffff;
   margin: 10px;
@@ -53,10 +53,18 @@ export const ProductImage = styled.img`
 
 export const ProductPriceTitle = styled.div`
   display: flex;
+  width: 100%;
   flex-direction: row;
+  justify-content: space-around;
   align-items: center;
-  padding: 2px 15px;
-  gap: 10px;
+  padding: 2px 10px;
+`;
+
+export const ProductName = styled.p`
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #2c2c2c;
 `;
 
 export const Price = styled.p`
@@ -64,20 +72,27 @@ export const Price = styled.p`
   justify-content: center;
   align-items: center;
   height: 26px;
-  width: 64px;
   font-size: 15px;
   font-weight: 700;
   background-color: #373737;
-  padding: 0 10px;
+  padding: 0 2px;
   border-radius: 5px;
   color: #fff;
+
+  &:hover {
+    background-color: #000;
+    transition: 0.8s;
+  }
 `;
 
 export const Paragraph = styled.p`
-  font-family: Montserrat;
   font-weight: 300;
   font-size: 10px;
   line-height: 12px;
   color: #2c2c2c;
   padding: 0 15px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100%;
 `;
