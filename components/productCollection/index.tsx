@@ -52,8 +52,15 @@ const sidebarVariants = {
 };
 
 export default function ProductCollection() {
-  const { isCartOpen, addToCart, openCart, totalAmount, closeCart, cart } =
-    useCart();
+  const {
+    isCartOpen,
+    addToCart,
+    openCart,
+    totalAmount,
+    closeCart,
+    cart,
+    decrementQuantityOrRemove,
+  } = useCart();
 
   const { data, isLoading, error } = useProductsQuery();
 
@@ -76,7 +83,7 @@ export default function ProductCollection() {
           >
             <ProductImage
               src={product.photo}
-              alt="shopping-bag"
+              alt="product-image"
               width={111}
               height={138}
             />
@@ -121,7 +128,34 @@ export default function ProductCollection() {
               cart.length > 0 &&
               cart.map((product) => (
                 <CartProducts key={product.id}>
-                  <h1>oi</h1>
+                  <Image
+                    src={product.photo}
+                    alt="product-image"
+                    width={60}
+                    height={60}
+                  />
+                  {product.name}
+                  <div>
+                    <button
+                      onClick={() => {
+                        decrementQuantityOrRemove(product.id);
+                      }}
+                    >
+                      -
+                    </button>
+                    <span>{product.quantity}</span>
+                    <button
+                      onClick={() => {
+                        addToCart(product);
+                      }}
+                    >
+                      +
+                    </button>
+                  </div>
+                  {new Intl.NumberFormat("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  }).format(Number(product.price))}
                 </CartProducts>
               ))}
 

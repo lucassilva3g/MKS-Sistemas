@@ -120,7 +120,7 @@ export const Title = styled.div`
   padding: 25px;
   background-color: #0f52ba;
   color: #fff;
-  font-size: 18px;
+  font-size: 16px;
 `;
 
 export const Icon = styled.div`
@@ -144,8 +144,8 @@ export const Icon = styled.div`
 
 export const CartProducts = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-direction: row;
+  gap: 15px;
   height: 95px;
   width: 379px;
   align-items: center;
