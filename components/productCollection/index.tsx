@@ -22,6 +22,9 @@ import {
   ProductImage,
   ProductName,
   ProductPriceTitle,
+  Quantity,
+  QuantitySelector,
+  QuantitySelectorButton,
   Sidebar,
   Title,
   TotalAmount,
@@ -107,23 +110,23 @@ export default function ProductCollection() {
                     height={60}
                   />
                   {product.name}
-                  <div>
-                    <button
+                  <QuantitySelector>
+                    <QuantitySelectorButton
                       onClick={() => {
                         decrementQuantityOrRemove(product.id);
                       }}
                     >
                       -
-                    </button>
-                    <span>{product.quantity}</span>
-                    <button
+                    </QuantitySelectorButton>
+                    <Quantity>{product.quantity}</Quantity>
+                    <QuantitySelectorButton
                       onClick={() => {
                         addToCart(product);
                       }}
                     >
                       +
-                    </button>
-                  </div>
+                    </QuantitySelectorButton>
+                  </QuantitySelector>
                   {new Intl.NumberFormat("pt-BR", {
                     style: "currency",
                     currency: "BRL",

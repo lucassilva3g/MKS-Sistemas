@@ -189,3 +189,28 @@ export const CartButton = styled.button`
     transition: 0.5s;
   }
 `;
+
+export const QuantitySelector = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 400;
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+`;
+
+export const QuantitySelectorButton = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0 6px;
+`;
+
+export const Quantity = styled.span`
+  padding: 0 10px;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  font-size: 13px;
+`;
