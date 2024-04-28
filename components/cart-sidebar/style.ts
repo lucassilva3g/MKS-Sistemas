@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 export const Sidebar = styled(motion.div)`
   display: flex;
+  overflow-y: auto;
   flex-direction: column;
   align-items: center;
   position: fixed;
@@ -12,7 +13,6 @@ export const Sidebar = styled(motion.div)`
   height: 100%;
   background: #0f52ba;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
-  z-index: 10;
 `;
 
 export const Title = styled.div`
@@ -123,4 +123,18 @@ export const CartItemPrice = styled.p`
   font-weight: 700;
   font-size: 18px;
   color: #000;
+`;
+
+export const RemoveProductButton = styled.button`
+  position: absolute;
+  top: 167px;
+  right: 5px;
+  font-size: 15px;
+  background-color: #000;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  color: #fff;
 `;

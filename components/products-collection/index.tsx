@@ -30,7 +30,7 @@ export function ProductsCollection() {
     openCartSidebar();
   };
 
-  if (true) return <Loading />;
+  if (isLoading) return <Loading />;
 
   return (
     <Container>

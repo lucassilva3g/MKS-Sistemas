@@ -15,7 +15,6 @@ export default function LandingPage() {
       <Header />
       <ProductsCollection />
       <Footer />
-
       <CartSidebar />
     </Container>
   );

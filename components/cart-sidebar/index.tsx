@@ -15,6 +15,7 @@ import {
   Quantity,
   QuantitySelector,
   QuantitySelectorButton,
+  RemoveProductButton,
   Sidebar,
   Title,
   TotalAmount,
@@ -29,6 +30,7 @@ export function CartSidebar() {
     closeCartSidebar,
     cart,
     decrementQuantityOrRemove,
+    deleteFromCart,
   } = useCart();
 
   return (
@@ -78,6 +80,13 @@ export function CartSidebar() {
                 <CartItemPrice>
                   {formatPrice(product.totalItemPrice)}
                 </CartItemPrice>
+                <RemoveProductButton
+                  onClick={() => {
+                    deleteFromCart(product.id);
+                  }}
+                >
+                  X
+                </RemoveProductButton>
               </CartProducts>
             ))}
 
