@@ -3,10 +3,14 @@ const formatPrice = (
   locale: string = "pt-BR",
   currency: string = "BRL",
 ): string => {
-  return new Intl.NumberFormat(locale, {
+  const formattedPrice = new Intl.NumberFormat(locale, {
     style: "currency",
     currency: currency,
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
   }).format(Number(price));
+
+  return formattedPrice.replace(/\s/g, "");
 };
 
 export default formatPrice;

@@ -12,6 +12,7 @@ import {
   CartItemPrice,
   CartProducts,
   Icon,
+  ProductsContainer,
   Quantity,
   QuantitySelector,
   QuantitySelectorButton,
@@ -48,47 +49,49 @@ export function CartSidebar() {
             <Icon onClick={closeCartSidebar}>X</Icon>
           </Title>
 
-          {cart &&
-            cart.length > 0 &&
-            cart.map((product) => (
-              <CartProducts key={product.id}>
-                <Image
-                  src={product.photo}
-                  alt="product-image"
-                  width={60}
-                  height={60}
-                />
-                {product.name}
-                <QuantitySelector>
-                  <QuantitySelectorButton
-                    disabled={product.quantity === 1}
+          <ProductsContainer>
+            {cart &&
+              cart.length > 0 &&
+              cart.map((product) => (
+                <CartProducts key={product.id}>
+                  <Image
+                    src={product.photo}
+                    alt="product-image"
+                    width={60}
+                    height={60}
+                  />
+                  {product.name}
+                  <QuantitySelector>
+                    <QuantitySelectorButton
+                      disabled={product.quantity === 1}
+                      onClick={() => {
+                        decrementQuantityOrRemove(product.id);
+                      }}
+                    >
+                      -
+                    </QuantitySelectorButton>
+                    <Quantity>{product.quantity}</Quantity>
+                    <QuantitySelectorButton
+                      onClick={() => {
+                        addToCart(product);
+                      }}
+                    >
+                      +
+                    </QuantitySelectorButton>
+                  </QuantitySelector>
+                  <CartItemPrice>
+                    {formatPrice(product.totalItemPrice)}
+                  </CartItemPrice>
+                  <RemoveProductButton
                     onClick={() => {
-                      decrementQuantityOrRemove(product.id);
+                      deleteFromCart(product.id);
                     }}
                   >
-                    -
-                  </QuantitySelectorButton>
-                  <Quantity>{product.quantity}</Quantity>
-                  <QuantitySelectorButton
-                    onClick={() => {
-                      addToCart(product);
-                    }}
-                  >
-                    +
-                  </QuantitySelectorButton>
-                </QuantitySelector>
-                <CartItemPrice>
-                  {formatPrice(product.totalItemPrice)}
-                </CartItemPrice>
-                <RemoveProductButton
-                  onClick={() => {
-                    deleteFromCart(product.id);
-                  }}
-                >
-                  X
-                </RemoveProductButton>
-              </CartProducts>
-            ))}
+                    X
+                  </RemoveProductButton>
+                </CartProducts>
+              ))}
+          </ProductsContainer>
 
           <CartFooter>
             <TotalAmount>

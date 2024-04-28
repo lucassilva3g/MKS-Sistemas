@@ -26,6 +26,10 @@ export const Title = styled.div`
   font-size: 16px;
 `;
 
+export const ProductsContainer = styled.div`
+  overflow-y: auto;
+`;
+
 export const Icon = styled.div`
   display: flex;
   justify-content: center;
