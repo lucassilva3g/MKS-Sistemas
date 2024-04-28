@@ -22,8 +22,7 @@ import {
 
 export function ProductsCollection() {
   const { addToCart, openCartSidebar } = useCart();
-
-  const { data, isLoading, error } = useProductsQuery();
+  const { data, isLoading } = useProductsQuery();
 
   const handleAddToCart = (product: Product) => {
     addToCart(product);
@@ -33,14 +32,13 @@ export function ProductsCollection() {
   if (isLoading) return <Loading />;
 
   return (
-    <Container>
+    <Container data-testid="product-container">
       {data &&
         data.products.map((product) => (
           <Card
             key={product.id}
+            data-testid={`product-card-${product.id}`}
             whileHover={{ scale: 1.1 }}
-            onHoverStart={(e) => {}}
-            onHoverEnd={(e) => {}}
           >
             <ProductImage
               src={product.photo}
@@ -55,7 +53,10 @@ export function ProductsCollection() {
             <Tooltip title={product.description} placement="top">
               <Paragraph>{product.description}</Paragraph>
             </Tooltip>
-            <Button onClick={() => handleAddToCart(product)}>
+            <Button
+              onClick={() => handleAddToCart(product)}
+              data-testid={`add-to-cart-${product.id}`}
+            >
               <Image
                 src="/shopping-bag.svg"
                 alt="shopping-bag"

@@ -16,19 +16,25 @@ const CartContext = createContext<CartContextData | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [isCartOpen, setIsCartOpen] = useState(() => {
-    const storagedIsCartOpen = localStorage.getItem("@mk-sistemas:isCartOpen");
+    if (typeof window !== "undefined") {
+      const storagedIsCartOpen = localStorage.getItem(
+        "@mk-sistemas:isCartOpen",
+      );
 
-    if (storagedIsCartOpen) {
-      return JSON.parse(storagedIsCartOpen);
+      if (storagedIsCartOpen) {
+        return JSON.parse(storagedIsCartOpen);
+      }
     }
 
     return false;
   });
   const [cart, setCart] = useState<CartProduct[]>(() => {
-    const storagedCarts = localStorage.getItem("@mk-sistemas:cart");
+    if (typeof window !== "undefined") {
+      const storagedCarts = localStorage.getItem("@mk-sistemas:cart");
 
-    if (storagedCarts) {
-      return JSON.parse(storagedCarts);
+      if (storagedCarts) {
+        return JSON.parse(storagedCarts);
+      }
     }
     return [];
   });

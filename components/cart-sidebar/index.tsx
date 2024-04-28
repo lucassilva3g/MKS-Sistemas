@@ -3,7 +3,6 @@
 import { useState } from "react";
 
 import { AnimatePresence } from "framer-motion";
-import Image from "next/image";
 
 import { useCart } from "contexts/cart-context";
 import { formatPrice } from "utils";
@@ -53,7 +52,7 @@ export function CartSidebar() {
     <AnimatePresence>
       {isCartOpen && (
         <Sidebar
-          id="sidebar"
+          data-testid="cart-sidebar"
           initial="hidden"
           animate="visible"
           exit="exit"
@@ -61,14 +60,19 @@ export function CartSidebar() {
         >
           <Title>
             <h1>Carrinho de compras</h1>
-            <Icon onClick={closeCartSidebar}>X</Icon>
+            <Icon onClick={closeCartSidebar} data-testid="close-sidebar">
+              X
+            </Icon>
           </Title>
 
           <ProductsContainer>
             {cart &&
               cart.length > 0 &&
               cart.map((product) => (
-                <CartProducts key={product.id}>
+                <CartProducts
+                  key={product.id}
+                  data-testid={`cart-product-${product.id}`}
+                >
                   <ProductImage
                     src={product.photo}
                     alt="product-image"
@@ -80,18 +84,16 @@ export function CartSidebar() {
                     <QuantityLabel>Qnt.</QuantityLabel>
                     <QuantitySelector>
                       <QuantitySelectorButton
+                        data-testid={`decrement-${product.id}`}
                         disabled={product.quantity === 1}
-                        onClick={() => {
-                          decrementQuantityOrRemove(product.id);
-                        }}
+                        onClick={() => decrementQuantityOrRemove(product.id)}
                       >
                         -
                       </QuantitySelectorButton>
                       <Quantity>{product.quantity}</Quantity>
                       <QuantitySelectorButton
-                        onClick={() => {
-                          addToCart(product);
-                        }}
+                        data-testid={`increment-${product.id}`}
+                        onClick={() => addToCart(product)}
                       >
                         +
                       </QuantitySelectorButton>
@@ -101,9 +103,8 @@ export function CartSidebar() {
                     {formatPrice(product.totalItemPrice)}
                   </CartItemPrice>
                   <RemoveProductButton
-                    onClick={() => {
-                      deleteFromCart(product.id);
-                    }}
+                    data-testid={`remove-${product.id}`}
+                    onClick={() => deleteFromCart(product.id)}
                   >
                     X
                   </RemoveProductButton>
@@ -117,6 +118,7 @@ export function CartSidebar() {
               <p>{formatPrice(totalAmount)}</p>
             </TotalAmount>
             <CartButton
+              data-testid="finish-purchase-button"
               onClick={handleFinishPurchase}
               disabled={cart.length === 0}
             >
