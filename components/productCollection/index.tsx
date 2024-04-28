@@ -47,12 +47,13 @@ const sidebarVariants = {
   exit: {
     x: "100vw",
     opacity: 0,
-    transition: { type: "tween", duration: 0.15 },
+    transition: { type: "tween", duration: 2.5 },
   },
 };
 
 export default function ProductCollection() {
-  const { isCartOpen, addToCart, openCart } = useCart();
+  const { isCartOpen, addToCart, openCart, totalAmount, closeCart, cart } =
+    useCart();
 
   const { data, isLoading, error } = useProductsQuery();
 
@@ -114,15 +115,25 @@ export default function ProductCollection() {
           >
             <Title>
               <h1>Carrinho de compras</h1>
-              <Icon>X</Icon>
+              <Icon onClick={closeCart}>X</Icon>
             </Title>
-            <CartProducts>
-              <p>Produtos no carrinho</p>
-            </CartProducts>
+            {cart &&
+              cart.length > 0 &&
+              cart.map((product) => (
+                <CartProducts key={product.id}>
+                  <h1>oi</h1>
+                </CartProducts>
+              ))}
+
             <CartFooter>
               <TotalAmount>
                 <p>Total:</p>
-                <p>R$798</p>
+                <p>
+                  {new Intl.NumberFormat("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  }).format(Number(totalAmount))}
+                </p>
               </TotalAmount>
               <CartButton>Finalizar compra</CartButton>
             </CartFooter>

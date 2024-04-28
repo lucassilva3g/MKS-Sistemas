@@ -17,6 +17,7 @@ interface CartProduct extends Product {
 interface CartContextData {
   isCartOpen: boolean;
   totalItems: number;
+  totalAmount: number;
   cart: CartProduct[];
   openCart: () => void;
   closeCart: () => void;
@@ -70,6 +71,10 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const totalItems = cart.reduce((acc, product) => acc + product.quantity, 0);
+  const totalAmount = cart.reduce(
+    (acc, product) => acc + product.quantity * product.price,
+    0,
+  );
 
   useEffect(() => {
     const closeSidebar = (event: MouseEvent) => {
@@ -97,6 +102,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         closeCart,
         addToCart,
         decrementQuantityOrRemove,
+        totalAmount,
       }}
     >
       {children}
