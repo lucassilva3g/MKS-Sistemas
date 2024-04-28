@@ -10,27 +10,28 @@ import {
 
 import { Product } from "api/fetchProducts";
 
-interface CartProduct extends Product {
-  quantity: number;
-}
-
-interface CartContextData {
-  isCartOpen: boolean;
-  totalItems: number;
-  totalAmount: number;
-  cart: CartProduct[];
-  openCartSidebar: () => void;
-  closeCartSidebar: () => void;
-  addToCart: (product: Product) => void;
-  deleteFromCart: (productId: number) => void;
-  decrementQuantityOrRemove: (productId: number) => void;
-}
+import { CartContextData, CartProduct } from "./types";
 
 const CartContext = createContext<CartContextData | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [cart, setCart] = useState<CartProduct[]>([]);
+  const [isCartOpen, setIsCartOpen] = useState(() => {
+    const storagedIsCartOpen = localStorage.getItem("@mk-sistemas:isCartOpen");
+
+    if (storagedIsCartOpen) {
+      return JSON.parse(storagedIsCartOpen);
+    }
+
+    return false;
+  });
+  const [cart, setCart] = useState<CartProduct[]>(() => {
+    const storagedCarts = localStorage.getItem("@mk-sistemas:cart");
+
+    if (storagedCarts) {
+      return JSON.parse(storagedCarts);
+    }
+    return [];
+  });
 
   const openCartSidebar = () => {
     setIsCartOpen(true);
@@ -48,11 +49,23 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       if (foundProduct) {
         return currentCart.map((cartItem) =>
           cartItem.id === productToAdd.id
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            ? {
+                ...cartItem,
+                quantity: cartItem.quantity + 1,
+                totalItemPrice:
+                  Number(cartItem.price) * (cartItem.quantity + 1),
+              }
             : cartItem,
         );
       }
-      return [...currentCart, { ...productToAdd, quantity: 1 }];
+      return [
+        ...currentCart,
+        {
+          ...productToAdd,
+          quantity: 1,
+          totalItemPrice: Number(productToAdd.price),
+        },
+      ];
     });
   };
 
@@ -78,10 +91,19 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const totalItems = cart.reduce((acc, product) => acc + product.quantity, 0);
+
   const totalAmount = cart.reduce(
-    (acc, product) => acc + product.quantity * product.price,
+    (acc, product) => acc + product.quantity * Number(product.price),
     0,
   );
+
+  useEffect(() => {
+    localStorage.setItem("@mk-sistemas:cart", JSON.stringify(cart));
+  }, [cart]);
+
+  useEffect(() => {
+    localStorage.setItem("@mk-sistemas:isCartOpen", JSON.stringify(isCartOpen));
+  }, [isCartOpen]);
 
   useEffect(() => {
     const closeSidebar = (event: MouseEvent) => {
