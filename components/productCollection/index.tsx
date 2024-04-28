@@ -4,9 +4,10 @@ import { Tooltip } from "@mui/material";
 import { AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
-import { Product } from "api/productsApi";
+import { Product } from "api/fetchProducts";
 import { useCart } from "contexts/cart-context";
 import { useProductsQuery } from "hooks/useProductsQuery";
+import { formatPrice } from "utils";
 
 import {
   Button,
@@ -25,41 +26,23 @@ import {
   Title,
   TotalAmount,
 } from "./index.style";
-
-const sidebarVariants = {
-  hidden: {
-    x: "100vw",
-    opacity: 0,
-    transition: { type: "tween", duration: 0.2 },
-  },
-  visible: {
-    x: 0,
-    opacity: 1,
-    transition: {
-      type: "spring",
-      stiffness: 250,
-      damping: 25,
-      mass: 0.4,
-      when: "beforeChildren",
-      staggerChildren: 0.05,
-    },
-  },
-  exit: {
-    x: "100vw",
-    opacity: 0,
-    transition: { type: "tween", duration: 2.5 },
-  },
-};
+import { sidebarVariants } from "../../constants";
 
 export default function ProductCollection() {
-  const { isCartOpen, addToCart, openCart, totalAmount, closeCart, cart } =
-    useCart();
+  const {
+    isCartOpen,
+    addToCart,
+    openCartSidebar,
+    totalAmount,
+    closeCartSidebar,
+    cart,
+  } = useCart();
 
   const { data, isLoading, error } = useProductsQuery();
 
   const handleAddToCart = (product: Product) => {
     addToCart(product);
-    openCart();
+    openCartSidebar();
   };
 
   if (isLoading) return <p>Loading...</p>;
@@ -82,12 +65,7 @@ export default function ProductCollection() {
             />
             <ProductPriceTitle>
               <ProductName>{product.name}</ProductName>
-              <Price>
-                {new Intl.NumberFormat("pt-BR", {
-                  style: "currency",
-                  currency: "BRL",
-                }).format(Number(product.price))}
-              </Price>
+              <Price>{formatPrice(product.price)}</Price>
             </ProductPriceTitle>
             <Tooltip title={product.description} placement="top">
               <Paragraph>{product.description}</Paragraph>
@@ -115,7 +93,7 @@ export default function ProductCollection() {
           >
             <Title>
               <h1>Carrinho de compras</h1>
-              <Icon onClick={closeCart}>X</Icon>
+              <Icon onClick={closeCartSidebar}>X</Icon>
             </Title>
             {cart &&
               cart.length > 0 &&
@@ -128,12 +106,7 @@ export default function ProductCollection() {
             <CartFooter>
               <TotalAmount>
                 <p>Total:</p>
-                <p>
-                  {new Intl.NumberFormat("pt-BR", {
-                    style: "currency",
-                    currency: "BRL",
-                  }).format(Number(totalAmount))}
-                </p>
+                <p>{formatPrice(totalAmount)}</p>
               </TotalAmount>
               <CartButton>Finalizar compra</CartButton>
             </CartFooter>

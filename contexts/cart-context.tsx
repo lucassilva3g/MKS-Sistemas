@@ -8,7 +8,7 @@ import {
   useState,
 } from "react";
 
-import { Product } from "api/productsApi";
+import { Product } from "api/fetchProducts";
 
 interface CartProduct extends Product {
   quantity: number;
@@ -19,9 +19,10 @@ interface CartContextData {
   totalItems: number;
   totalAmount: number;
   cart: CartProduct[];
-  openCart: () => void;
-  closeCart: () => void;
+  openCartSidebar: () => void;
+  closeCartSidebar: () => void;
   addToCart: (product: Product) => void;
+  deleteFromCart: (productId: number) => void;
   decrementQuantityOrRemove: (productId: number) => void;
 }
 
@@ -31,11 +32,11 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cart, setCart] = useState<CartProduct[]>([]);
 
-  const openCart = () => {
+  const openCartSidebar = () => {
     setIsCartOpen(true);
   };
 
-  const closeCart = useCallback(() => {
+  const closeCartSidebar = useCallback(() => {
     setIsCartOpen(false);
   }, []);
 
@@ -52,6 +53,12 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         );
       }
       return [...currentCart, { ...productToAdd, quantity: 1 }];
+    });
+  };
+
+  const deleteFromCart = (productId: number) => {
+    setCart((currentCart) => {
+      return currentCart.filter((cartItem) => cartItem.id !== productId);
     });
   };
 
@@ -78,8 +85,12 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const closeSidebar = (event: MouseEvent) => {
+      const buyingButton = (event.target as HTMLElement).closest("button");
+      if (buyingButton && buyingButton.textContent === "COMPRAR") {
+        return;
+      }
       if (!(event.target as HTMLElement).closest("#sidebar")) {
-        closeCart();
+        closeCartSidebar();
       }
     };
 
@@ -90,7 +101,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     return () => {
       document.removeEventListener("click", closeSidebar);
     };
-  }, [isCartOpen, closeCart]);
+  }, [isCartOpen, closeCartSidebar]);
 
   return (
     <CartContext.Provider
@@ -98,9 +109,10 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         isCartOpen,
         totalItems,
         cart,
-        openCart,
-        closeCart,
+        openCartSidebar,
+        closeCartSidebar,
         addToCart,
+        deleteFromCart,
         decrementQuantityOrRemove,
         totalAmount,
       }}
