@@ -236,3 +236,11 @@ export const RemoveProductButton = styled.button`
     background-color: #fff;
   }
 `;
+
+export const EmptyCart = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #d3d3d3;
+`;
