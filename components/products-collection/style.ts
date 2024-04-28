@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -12,7 +13,7 @@ export const Container = styled.div`
   gap: 22px;
 `;
 
-export const Card = styled.div`
+export const Card = styled(motion.div)`
   display: flex;
   width: 238px;
   height: 285px;
