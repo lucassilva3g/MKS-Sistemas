@@ -46,6 +46,7 @@ export const Icon = styled.div`
 `;
 
 export const CartProducts = styled.div`
+  position: relative;
   display: flex;
   flex-direction: row;
   gap: 15px;
@@ -127,12 +128,12 @@ export const CartItemPrice = styled.p`
 
 export const RemoveProductButton = styled.button`
   position: absolute;
-  top: 167px;
-  right: 5px;
-  font-size: 15px;
+  bottom: 82%;
+  right: -3px;
+  font-size: 12px;
   background-color: #000;
-  height: 30px;
-  width: 30px;
+  height: 24px;
+  width: 24px;
   border-radius: 50%;
   border: none;
   cursor: pointer;
