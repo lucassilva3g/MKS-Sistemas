@@ -1,35 +1,66 @@
-# Next.js + Jest
+# MKS Sistemas - Loja de Produtos
 
-This example shows how to configure Jest to work with Next.js.
+Este repositório contém o código-fonte para a aplicação de e-commerce desenvolvida como parte de um desafio técnico. A aplicação foi construída utilizando Next.js e outras tecnologias modernas para exibir uma lista de produtos e gerenciar um carrinho de compras.
 
-This includes Next.js' built-in support for Global CSS, CSS Modules and TypeScript. This example also shows how to use Jest with the App Router and React Server Components.
+## Tecnologias Utilizadas
 
-> **Note:** Since tests can be co-located alongside other files inside the App Router, we have placed those tests in `app/` to demonstrate this behavior (which is different than `pages/`). You can still place all tests in `__tests__` if you prefer.
+- **Next.js**: Framework React para produção.
+- **React Query**: Biblioteca para gerenciamento de estado e busca de dados.
+- **Styled-Components**: Para estilização.
+- **Framer Motion**: Para animações.
+- **Material UI**: Para skeleton e tooltip.
+- **Jest e Testing-Library**: Para testes unitários.
 
-## Deploy your own
+## Funcionalidades
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-jest&project-name=with-jest&repository-name=with-jest)
+- **Visualização de Produtos**: Os produtos são buscados de uma API REST e exibidos na página principal.
+- **Carrinho de Compras**: Os usuários podem adicionar produtos ao carrinho e ajustar a quantidade de cada item.
 
-## How to Use
+## Rodando o Projeto Localmente
 
-Quickly get started using [Create Next App](https://github.com/vercel/next.js/tree/canary/packages/create-next-app#readme)!
+Para executar este projeto localmente, siga estes passos:
 
-In your terminal, run the following command:
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/lucassilva3g/MKS-Sistemas.git
 
-```bash
-npx create-next-app --example with-jest with-jest-app
-```
-
-```bash
-yarn create next-app --example with-jest with-jest-app
-```
-
-```bash
-pnpm create next-app --example with-jest with-jest-app
-```
-
-## Running Tests
+2. Instale as dependências:
 
 ```bash
-npm test
+npm install
 ```
+
+3. Execute o servidor de desenvolvimento:
+```bash
+npm run dev
+```
+
+Acesse http://localhost:3000 no navegador para ver a aplicação em funcionamento.
+
+## Executando Testes
+
+1. Para executar os testes unitários, execute o seguinte comando:
+
+```bash
+npm run test
+```
+
+2. Para gerar um relatório de cobertura de testes, execute o seguinte comando:
+
+```bash
+npm run test:coverage
+```
+
+Após a execução dos testes, um relatório de cobertura será gerado na pasta `coverage`.
+
+Acesse `coverage/lcov-report/index.html` no navegador para visualizar o relatório.
+
+![test-coverage](.github/test-coverage.png)
+
+## Deploy
+
+A aplicação foi implantada usando [Vercel](https://vercel.com). Você pode acessar a aplicação em produção através deste link: [MKS Sistemas na Vercel](https://mks-sistemas-lime.vercel.app/).
+
+
+## Contribuições
+Contribuições são bem-vindas. Para contribuir, por favor abra um pull request com suas sugestões de melhorias ou correções.
