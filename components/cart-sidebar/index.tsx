@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import { CircularProgress } from "@mui/material";
 import { AnimatePresence } from "framer-motion";
 
 import { useCart } from "contexts/cart-context";
@@ -24,6 +25,7 @@ import {
   TotalAmount,
   QuantityLabel,
   ProductImage,
+  EmptyCart,
 } from "./style";
 import { sidebarVariants } from "../../constants";
 
@@ -65,6 +67,11 @@ export function CartSidebar() {
             </Icon>
           </Title>
 
+          {cart.length === 0 && (
+            <EmptyCart>
+              <h2>Seu carrinho está vazio.</h2>
+            </EmptyCart>
+          )}
           <ProductsContainer>
             {cart &&
               cart.length > 0 &&
@@ -111,7 +118,6 @@ export function CartSidebar() {
                 </CartProducts>
               ))}
           </ProductsContainer>
-
           <CartFooter>
             <TotalAmount>
               <p>Total:</p>
