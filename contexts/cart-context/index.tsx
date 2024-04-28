@@ -80,7 +80,11 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       return currentCart.reduce<CartProduct[]>((acc, cartItem) => {
         if (cartItem.id === productId) {
           if (cartItem.quantity > 1) {
-            acc.push({ ...cartItem, quantity: cartItem.quantity - 1 });
+            acc.push({
+              ...cartItem,
+              quantity: cartItem.quantity - 1,
+              totalItemPrice: Number(cartItem.price) * (cartItem.quantity - 1),
+            });
           }
         } else {
           acc.push(cartItem);

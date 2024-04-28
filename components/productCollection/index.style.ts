@@ -214,3 +214,10 @@ export const Quantity = styled.span`
   border-left: 1px solid #ccc;
   font-size: 13px;
 `;
+
+export const CartItemPrice = styled.p`
+  width: 100%;
+  font-weight: 700;
+  font-size: 18px;
+  color: #000;
+`;

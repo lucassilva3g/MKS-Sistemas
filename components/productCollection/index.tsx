@@ -14,6 +14,7 @@ import {
   Card,
   CartButton,
   CartFooter,
+  CartItemPrice,
   CartProducts,
   Container,
   Icon,
@@ -99,6 +100,7 @@ export default function ProductCollection() {
               <h1>Carrinho de compras</h1>
               <Icon onClick={closeCartSidebar}>X</Icon>
             </Title>
+
             {cart &&
               cart.length > 0 &&
               cart.map((product) => (
@@ -112,6 +114,7 @@ export default function ProductCollection() {
                   {product.name}
                   <QuantitySelector>
                     <QuantitySelectorButton
+                      disabled={product.quantity === 1}
                       onClick={() => {
                         decrementQuantityOrRemove(product.id);
                       }}
@@ -127,10 +130,9 @@ export default function ProductCollection() {
                       +
                     </QuantitySelectorButton>
                   </QuantitySelector>
-                  {new Intl.NumberFormat("pt-BR", {
-                    style: "currency",
-                    currency: "BRL",
-                  }).format(Number(product.price))}
+                  <CartItemPrice>
+                    {formatPrice(product.totalItemPrice)}
+                  </CartItemPrice>
                 </CartProducts>
               ))}
 
