@@ -2,7 +2,7 @@
 
 import { FooterDiv } from "./style";
 
-export default function Footer() {
+export function Footer() {
   return (
     <FooterDiv>
       <p>MKS sistemas © Todos os direitos reservados</p>

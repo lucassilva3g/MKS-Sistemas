@@ -1,6 +1,6 @@
 import { Montserrat } from "next/font/google";
 
-import { ReactQueryClientProvider } from "@/components/ReactQueryClientProvider";
+import { ReactQueryClientProvider } from "@/components/providers/ReactQueryClientProvider";
 import { CartProvider } from "contexts/cart-context";
 import { StyledComponentsRegistry } from "lib/registry";
 import "../styles/global.css";

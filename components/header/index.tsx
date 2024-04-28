@@ -7,7 +7,7 @@ import { useCart } from "contexts/cart-context";
 
 import { Title, Container, CartIcon } from "./style";
 
-export default function Header() {
+export function Header() {
   const { openCartSidebar, totalItems } = useCart();
   return (
     <Container>
