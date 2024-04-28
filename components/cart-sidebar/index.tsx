@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 import { AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
@@ -27,6 +29,8 @@ import {
 import { sidebarVariants } from "../../constants";
 
 export function CartSidebar() {
+  const [buttonText, setButtonText] = useState("Finalizar compra");
+
   const {
     isCartOpen,
     addToCart,
@@ -36,6 +40,14 @@ export function CartSidebar() {
     decrementQuantityOrRemove,
     deleteFromCart,
   } = useCart();
+
+  const handleFinishPurchase = () => {
+    setButtonText("Finalizando compra...");
+
+    setTimeout(() => {
+      setButtonText("Finalizar compra");
+    }, 5000);
+  };
 
   return (
     <AnimatePresence>
@@ -104,7 +116,12 @@ export function CartSidebar() {
               <p>Total:</p>
               <p>{formatPrice(totalAmount)}</p>
             </TotalAmount>
-            <CartButton>Finalizar compra</CartButton>
+            <CartButton
+              onClick={handleFinishPurchase}
+              disabled={cart.length === 0}
+            >
+              {buttonText}
+            </CartButton>
           </CartFooter>
         </Sidebar>
       )}
