@@ -109,26 +109,6 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     localStorage.setItem("@mk-sistemas:isCartOpen", JSON.stringify(isCartOpen));
   }, [isCartOpen]);
 
-  useEffect(() => {
-    const closeSidebar = (event: MouseEvent) => {
-      const buyingButton = (event.target as HTMLElement).closest("button");
-      if (buyingButton && buyingButton.textContent === "COMPRAR") {
-        return;
-      }
-      if (!(event.target as HTMLElement).closest("#sidebar")) {
-        closeCartSidebar();
-      }
-    };
-
-    if (isCartOpen) {
-      document.addEventListener("click", closeSidebar);
-    }
-
-    return () => {
-      document.removeEventListener("click", closeSidebar);
-    };
-  }, [isCartOpen, closeCartSidebar]);
-
   return (
     <CartContext.Provider
       value={{
