@@ -29,7 +29,7 @@ import {
   Sidebar,
   Title,
   TotalAmount,
-} from "./index.style";
+} from "./style";
 import { sidebarVariants } from "../../constants";
 
 export default function ProductCollection() {

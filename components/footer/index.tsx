@@ -1,6 +1,6 @@
 "use client";
 
-import { FooterDiv } from "./footer.style";
+import { FooterDiv } from "./style";
 
 export default function Footer() {
   return (

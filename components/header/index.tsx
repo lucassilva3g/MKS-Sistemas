@@ -5,7 +5,7 @@ import Image from "next/image";
 
 import { useCart } from "contexts/cart-context";
 
-import { Title, Container, CartIcon } from "./index.style";
+import { Title, Container, CartIcon } from "./style";
 
 export default function Header() {
   const { openCartSidebar, totalItems } = useCart();
