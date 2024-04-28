@@ -16,10 +16,13 @@ import {
   Quantity,
   QuantitySelector,
   QuantitySelectorButton,
+  QuantitySelectorWrapper,
   RemoveProductButton,
   Sidebar,
   Title,
   TotalAmount,
+  QuantityLabel,
+  ProductImage,
 } from "./style";
 import { sidebarVariants } from "../../constants";
 
@@ -54,31 +57,34 @@ export function CartSidebar() {
               cart.length > 0 &&
               cart.map((product) => (
                 <CartProducts key={product.id}>
-                  <Image
+                  <ProductImage
                     src={product.photo}
                     alt="product-image"
-                    width={60}
-                    height={60}
+                    width={55}
+                    height={55}
                   />
                   {product.name}
-                  <QuantitySelector>
-                    <QuantitySelectorButton
-                      disabled={product.quantity === 1}
-                      onClick={() => {
-                        decrementQuantityOrRemove(product.id);
-                      }}
-                    >
-                      -
-                    </QuantitySelectorButton>
-                    <Quantity>{product.quantity}</Quantity>
-                    <QuantitySelectorButton
-                      onClick={() => {
-                        addToCart(product);
-                      }}
-                    >
-                      +
-                    </QuantitySelectorButton>
-                  </QuantitySelector>
+                  <QuantitySelectorWrapper>
+                    <QuantityLabel>Qnt.</QuantityLabel>
+                    <QuantitySelector>
+                      <QuantitySelectorButton
+                        disabled={product.quantity === 1}
+                        onClick={() => {
+                          decrementQuantityOrRemove(product.id);
+                        }}
+                      >
+                        -
+                      </QuantitySelectorButton>
+                      <Quantity>{product.quantity}</Quantity>
+                      <QuantitySelectorButton
+                        onClick={() => {
+                          addToCart(product);
+                        }}
+                      >
+                        +
+                      </QuantitySelectorButton>
+                    </QuantitySelector>
+                  </QuantitySelectorWrapper>
                   <CartItemPrice>
                     {formatPrice(product.totalItemPrice)}
                   </CartItemPrice>

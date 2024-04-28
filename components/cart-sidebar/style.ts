@@ -26,10 +26,6 @@ export const Title = styled.div`
   font-size: 16px;
 `;
 
-export const ProductsContainer = styled.div`
-  overflow-y: auto;
-`;
-
 export const Icon = styled.div`
   display: flex;
   justify-content: center;
@@ -49,18 +45,52 @@ export const Icon = styled.div`
   }
 `;
 
+export const ProductImage = styled.img`
+  border-radius: 5px;
+
+  @media (max-width: 768px) {
+    width: 100px;
+    height: 100px;
+  }
+`;
+
+export const ProductsContainer = styled.div`
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0 20px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 100%;
+  }
+`;
+
 export const CartProducts = styled.div`
   position: relative;
   display: flex;
   flex-direction: row;
   gap: 15px;
   height: 95px;
-  width: 379px;
+  width: 360px;
   align-items: center;
   justify-content: center;
   background-color: #fff;
   border-radius: 8px;
   margin-top: 50px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 40px;
+    height: 35%;
+    width: 280px;
+  }
 `;
 
 export const CartFooter = styled.div`
@@ -75,6 +105,7 @@ export const CartFooter = styled.div`
 export const TotalAmount = styled.div`
   display: flex;
   font-weight: 700;
+  padding-top: 20px;
   padding-bottom: 20px;
   justify-content: space-around;
   width: 100%;
@@ -98,14 +129,34 @@ export const CartButton = styled.button`
   }
 `;
 
+export const QuantitySelectorWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+
+  @media (max-width: 768px) {
+    margin-bottom: -50px;
+    padding-right: 120px;
+  }
+`;
+
 export const QuantitySelector = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-weight: 400;
-  padding: 4px 8px;
+  padding: 4px 6px;
   border: 1px solid #ccc;
   border-radius: 5px;
+
+  @media (max-width: 768px) {
+    padding: 8px;
+    width: 100px;
+  }
 `;
 
 export const QuantitySelectorButton = styled.button`
@@ -114,6 +165,15 @@ export const QuantitySelectorButton = styled.button`
   cursor: pointer;
   font-size: 1rem;
   padding: 0 6px;
+
+  &:hover {
+    background-color: #ccc;
+    border-radius: 50%;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
 `;
 
 export const Quantity = styled.span`
@@ -123,16 +183,39 @@ export const Quantity = styled.span`
   font-size: 13px;
 `;
 
+export const QuantityLabel = styled.p`
+  font-size: 12px;
+  padding-right: 48px;
+  font-weight: 400;
+  color: #000;
+  margin-top: 5px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
 export const CartItemPrice = styled.p`
   width: 100%;
   font-weight: 700;
   font-size: 18px;
   color: #000;
+
+  @media (max-width: 768px) {
+    margin-left: 130px;
+    background-color: #373737;
+    color: #fff;
+    text-align: center;
+    padding: 5px;
+    height: 30px;
+    width: 110px;
+    border-radius: 5px;
+  }
 `;
 
 export const RemoveProductButton = styled.button`
   position: absolute;
-  bottom: 82%;
+  bottom: 80px;
   right: -3px;
   font-size: 12px;
   background-color: #000;
@@ -142,4 +225,14 @@ export const RemoveProductButton = styled.button`
   border: none;
   cursor: pointer;
   color: #fff;
+
+  @media (max-width: 768px) {
+    top: 8px;
+    right: 8px;
+    border-radius: 0;
+    font-size: 20px;
+    font-weight: 400;
+    color: #000;
+    background-color: #fff;
+  }
 `;
