@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { fetchProducts } from "api/productsApi";
+import { fetchProducts } from "api/fetchProducts";
 
 export const useProductsQuery = (
   params = { page: 1, rows: 10, sortBy: "id", orderBy: "DESC" },
