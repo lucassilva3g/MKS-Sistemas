@@ -21,6 +21,7 @@
       }
     ],
     "no-console": "warn",
-    "import/named": "off"
+    "import/named": "off",
+     "import/no-named-as-default": "off"
   }
 }
