@@ -88,7 +88,8 @@ export const CartProducts = styled.div`
     align-items: center;
     justify-content: center;
     margin-left: 40px;
-    height: 35%;
+    height: fit-content;
+    padding: 20px;
     width: 280px;
   }
 `;
